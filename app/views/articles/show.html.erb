@@ -1,0 +1,55 @@
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+ 
+<p>
+  <strong>Text:</strong>
+  <%= @article.text %>
+</p>
+
+<% if @comments %>
+	<table>
+		<tr>
+			<th>Commenter</th>
+			<th>Body</th>
+		</tr>
+
+		<% @comments.each do |comment| %>
+			<tr>
+				<td><%= comment.commenter %></td>
+				<td><%= comment.body %></td>
+				<td><%= link_to 'edit', edit_article_comment_path(comment.article_id, comment.id) %></td>
+				<td><%= link_to 'delete', article_comment_path(comment.article_id, comment.id), method: :delete, data: { confirm: 'sure?' } %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= form_for([@article, @article.comments.build]) do |f| %>
+	<% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited
+        this comment from being saved:</h2>
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= f.label :commenter %><br>
+    <%= f.text_field :commenter %>
+  </p>
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', articles_path %>

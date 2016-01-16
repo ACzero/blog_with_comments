@@ -1,0 +1,17 @@
+<h1>Listing Comments</h1>
+<%= link_to 'New comments', new_article_comment_path %>
+<table>
+  <tr>
+    <th>Commenter</th>
+    <th>Body</th>
+  </tr>
+ 
+  <% @comments.each do |comment| %>
+    <tr>
+      <td><%= comment.commenter %></td>
+      <td><%= comment.body %></td>
+      <td><%= link_to 'edit', edit_article_comment_path(comment) %></td>
+      <td><%= link_to 'delete', article_comment_path(comment), method: :patch, data: { confirm: 'sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
