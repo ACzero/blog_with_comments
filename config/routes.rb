@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   get 'exit', to: 'articles#index', as: :test
   get 'test/:id', to: 'articles#show', as: :sarticle
+  get 'test', to: 'test#test'
 
   resources :articles do
     resources :comments, except: [:show, :new]
